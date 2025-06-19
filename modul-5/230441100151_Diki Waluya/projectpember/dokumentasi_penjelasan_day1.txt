@@ -1,0 +1,131 @@
+Dokumentasi & Penjelasan HomeScreen.dart
+--Tujuan
+Halaman ini menjadi landing page utama user setelah login, yang menampilkan:
+
+Form input untuk berat, tinggi, dan target berat badan.
+
+Progress user berupa data dan pesan motivasi.
+
+Animasi Lottie untuk motivasi visual.
+
+Riwayat update berat (jika tersedia).
+
+--Mekanisme Kerja
+1. initState()
+Saat halaman pertama kali dibuka, memanggil:
+
+dart
+Copy
+Edit
+_fetchProgress();
+Fungsinya untuk:
+
+Mengambil data progres user dari database.
+
+Menyimpan ke _progressData.
+
+Menentukan apakah user sudah mencapai target.
+
+2. fetchProgress()
+Fungsi ini:
+
+Mengambil list berat badan dari service.
+
+Jika data tersedia:
+
+Ambil berat awal, target, dan tinggi badan terakhir.
+
+Jika berat terakhir ≤ target → tampilkan animasi “Selamat”.
+
+Jika data kosong:
+
+Reset semua nilai (_targetWeight, dsb).
+
+Kosongkan form.
+
+3. saveProgress()
+Menangani logika ketika user mengisi dan menekan tombol “Simpan”:
+
+Validasi apakah semua input sudah diisi.
+
+Jika valid → kirim ke server menggunakan ProgressService.
+
+Setelah berhasil → refresh data dan reset form.
+
+Struktur Tampilan (UI)
+1. HeaderCard
+Ditampilkan sebagai sticky header (menggunakan SliverPersistentHeader) dan berisi:
+
+Berat badan terakhir.
+
+Target berat.
+
+Tinggi badan terakhir.
+
+2. UpdateCard
+Berisi:
+
+Form input berat dan tinggi.
+
+Jika target belum ditentukan, juga menampilkan input target.
+
+Tombol Simpan untuk menyimpan data progress.
+
+3. GoalDetail
+Menampilkan:
+
+Pesan motivasi jika belum capai target.
+
+Ucapan “Sudah mencapai target” jika berat sekarang ≤ target.
+
+4. Lottie Animation
+Menampilkan animasi gym sebagai motivasi.
+
+5. CongratsPopup
+Ditampilkan hanya saat berat sudah ≤ target dan muncul otomatis selama 2 detik.
+
+6. ProgressList
+Menampilkan list histori berat, setiap item berisi:
+
+Berat badan.
+
+Tanggal update.
+
+Tombol delete.
+
+--Perilaku Dinamis
+Kondisi	Efek Tampilan
+Belum ada progress	Form input tampil di tengah layar dengan input target
+Sudah ada progress	Header sticky + form update biasa + grafik/riwayat tampil
+Berat ≤ target	Popup “Selamat” tampil otomatis 2 detik dengan animasi
+User menghapus semua progress	Semua form reset ke awal (input target ditampilkan lagi)
+
+-- Komponen Khusus Flutter
+CustomScrollView – digunakan untuk scroll + sliver combination.
+
+SliverPersistentHeader – agar header tetap muncul saat scroll.
+
+SliverFillRemaining – agar form pertama kali tampil di tengah.
+
+Stack – untuk menumpuk animasi “selamat” di atas semua konten.
+
+SnackBar – notifikasi setelah simpan/hapus progress.
+
+-- Keunggulan Desain Ini
+Form & tampilan responsif, tidak overflow saat keyboard muncul.
+
+UX adaptif berdasarkan status user.
+
+Sticky header membuat info utama selalu terlihat.
+
+Tampilan tetap rapi meski tanpa data.
+
+Mudah dikembangkan ke grafik, statistik, atau fitur tambahan lainnya.
+
+-- Catatan 
+Semua data yang ditampilkan berasal dari ProgressService.fetchProgress(uid).
+
+Pastikan service backend mengembalikan data dengan format benar (berat, tinggi, target_berat, tanggal, dsb).
+
+WeightEntry harus mampu meng-handle parsing nilai numerik dari string.
+
