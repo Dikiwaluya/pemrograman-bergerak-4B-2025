@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "80710857666",
+    "firebase_url": "https://punurunbb-default-rtdb.firebaseio.com",
+    "project_id": "punurunbb",
+    "storage_bucket": "punurunbb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80710857666:android:dd9d7c03f476e774e79c5b",
+        "android_client_info": {
+          "package_name": "com.example.projectpember"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi6wU0frho8oRWi85gNu9ESNEiohPLtiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
